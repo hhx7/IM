@@ -1,0 +1,185 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "2:4235341248777027256",
+      "lastPropertyId": "6:8160293390740287558",
+      "name": "User",
+      "properties": [
+        {
+          "id": "1:6419952481243566372",
+          "indexId": "7:3546666890132898195",
+          "name": "id"
+        },
+        {
+          "id": "2:8327222680820775439",
+          "name": "name"
+        },
+        {
+          "id": "3:6913999254544349208",
+          "name": "avatar"
+        },
+        {
+          "id": "4:7962811776508751922",
+          "name": "online"
+        },
+        {
+          "id": "5:2972711569967634415",
+          "name": "id_"
+        },
+        {
+          "id": "6:8160293390740287558",
+          "name": "btAddr"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:5441222147245830263",
+      "lastPropertyId": "6:2996791159791999515",
+      "name": "Dialog",
+      "properties": [
+        {
+          "id": "1:7441072876076793904",
+          "name": "id_"
+        },
+        {
+          "id": "2:4549423520889146263",
+          "indexId": "1:4352293267309156134",
+          "name": "id"
+        },
+        {
+          "id": "3:2071264180681711664",
+          "name": "dialogPhoto"
+        },
+        {
+          "id": "4:6781225473830697260",
+          "name": "dialogName"
+        },
+        {
+          "id": "5:7837397458941410452",
+          "name": "unreadCount"
+        },
+        {
+          "id": "6:2996791159791999515",
+          "indexId": "2:7911855311311985453",
+          "name": "lastMessage_Id"
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:838348298107126461",
+          "name": "users_"
+        }
+      ]
+    },
+    {
+      "id": "4:7606739438222542808",
+      "lastPropertyId": "10:6890940434176507418",
+      "name": "Message",
+      "properties": [
+        {
+          "id": "1:7964492259416326744",
+          "name": "id_"
+        },
+        {
+          "id": "2:4120446568892850767",
+          "indexId": "3:1233446375653818182",
+          "name": "id"
+        },
+        {
+          "id": "3:6130768972954021735",
+          "name": "text"
+        },
+        {
+          "id": "4:7321424643688599641",
+          "name": "createdAt"
+        },
+        {
+          "id": "5:6231267864659945084",
+          "name": "url"
+        },
+        {
+          "id": "7:7572118052202489277",
+          "indexId": "5:8201190156885620200",
+          "name": "imageId"
+        },
+        {
+          "id": "8:5455024222626288520",
+          "indexId": "6:6313545520424560036",
+          "name": "voiceId"
+        },
+        {
+          "id": "9:2227028414007632230",
+          "indexId": "8:7818877777900143961",
+          "name": "sendUserId"
+        },
+        {
+          "id": "10:6890940434176507418",
+          "indexId": "9:1799165271898420768",
+          "name": "receiveUserId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:6055472351083104494",
+      "lastPropertyId": "3:3363069182560086670",
+      "name": "Voice",
+      "properties": [
+        {
+          "id": "1:7284355052524890441",
+          "name": "id"
+        },
+        {
+          "id": "2:7317705587470365889",
+          "name": "url"
+        },
+        {
+          "id": "3:3363069182560086670",
+          "name": "duration"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:7148962520517308517",
+      "lastPropertyId": "2:3848619029523677693",
+      "name": "Picture",
+      "properties": [
+        {
+          "id": "1:1779256740374305749",
+          "name": "id"
+        },
+        {
+          "id": "2:3848619029523677693",
+          "name": "url"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "7:7148962520517308517",
+  "lastIndexId": "9:1799165271898420768",
+  "lastRelationId": "1:838348298107126461",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [
+    7664180360673065510,
+    1024466773061213430
+  ],
+  "retiredIndexUids": [
+    4033423685936903522
+  ],
+  "retiredPropertyUids": [
+    7898509047855864826,
+    4838862410686639912,
+    8705268928755814985,
+    7553889854984248027
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
