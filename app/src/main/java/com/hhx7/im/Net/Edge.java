@@ -1,5 +1,4 @@
 package com.hhx7.im.Net;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
@@ -158,6 +157,7 @@ public abstract class Edge extends Thread{
     /// receiveResponse() is called or the session
     /// is destroyed.
     public synchronized boolean sendMessage(MyMessage myMessage){
+
         if(connected()){
 
             try{
@@ -165,6 +165,7 @@ public abstract class Edge extends Thread{
                 OutputStream os=getOutputStream();
                 if(myMessage!=null && os !=null){
                     myMessage.write(os);
+                    Log.i("zz","send message from "+myMessage.getFrom().getAddress()+"->"+myMessage.getTo().getAddress());
                     return true;
                 }
             }catch (IOException e){
@@ -191,7 +192,7 @@ public abstract class Edge extends Thread{
             try{
                 is=getInputStream();
             }catch (Exception e){
-                Log.e("Get InputStream",e.getMessage());
+                Log.e("zz",e.getMessage());
                 break;
             }
             lock.lock();
@@ -209,11 +210,13 @@ public abstract class Edge extends Thread{
                 MyMessage myMessage=new MyMessage();
                 myMessage.read(is);
                 myMessage.attachEdge(this);
+                myMessage.setFrom(address);
+                Log.i("zz","receive message from "+myMessage.getFrom().getAddress()+"->"+myMessage.getTo().getAddress());
                 Intent intent=new Intent(MsgHandlerCenter.HANDLE_MY_MESSAGE_ACTION);
                 intent.putExtra(MsgHandlerCenter.ARGS_MESSAGE_NAME,myMessage);
                 localBroadcastManager.sendBroadcast(intent);
             }catch (IOException e){
-                Log.e("Read",e.getMessage());
+                Log.e("zz",e.getMessage());
                 if(manager!=null)
                     manager.close(address);
                 return;

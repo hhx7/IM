@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class EdgeManager extends Thread {
+public class  EdgeManager extends Thread {
 
     public static String FORWARD_MESSAGE_ACTION = "com.hhx7.actions.FORWARD_MESSAGE";
 
@@ -45,14 +45,13 @@ public class EdgeManager extends Thread {
         public synchronized void run(){
             MyMessage myMessage = (MyMessage) intent.getSerializableExtra(ARGS_MESSAGE_NAME);
             Address to = myMessage.getTo();
-            Log.i("To",to.getAddress());
             if (!failedDevices.contains(to)) {
                 try {
-
                     Edge edge = get(to);
                     if (edge != null && edge.connected()) {
-                        if(!edge.sendMessage(myMessage)){
+                         if(!edge.sendMessage(myMessage)){
                             edge.sendMessage(myMessage);
+
                         }
                     }
                 } catch (Exception e) {
@@ -115,11 +114,7 @@ public class EdgeManager extends Thread {
 
     //Stop a specified session;
     public synchronized void close(Address id) {
-
-
        edges.remove(id);
-
-
     }
 
     //Stop all session

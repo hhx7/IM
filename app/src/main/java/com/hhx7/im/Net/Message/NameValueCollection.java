@@ -1,6 +1,8 @@
 package com.hhx7.im.Net.Message;
 
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

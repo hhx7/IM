@@ -1,9 +1,15 @@
 package com.hhx7.im.utils;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.widget.Toast;
 
+import net.vidageek.mirror.dsl.Mirror;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 /*
@@ -21,5 +27,21 @@ public class AppUtils {
 
     public static String getRandomId() {
         return Long.toString(UUID.randomUUID().getLeastSignificantBits());
+    }
+
+    public static String getBtAddressMac() {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        try {
+
+            Field mServiceField = bluetoothAdapter.getClass().getDeclaredField("mService");
+            mServiceField.setAccessible(true);
+
+            Object btManagerService = mServiceField.get(bluetoothAdapter);
+            return (String) btManagerService.getClass().getMethod("getAddress").invoke(btManagerService);
+        } catch (NoSuchFieldException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            Log.e("ConnectionManagerTest: ", "getBluetoothMacAddress: Failed to get Bluetooth address " + e.getMessage(), e);
+        }
+        return null;
     }
 }

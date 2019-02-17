@@ -1,8 +1,10 @@
 package com.hhx7.im;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         navigationController.setupWithViewPager(pager);
+        int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1;
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
     }
 
     @Override

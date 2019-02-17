@@ -6,6 +6,8 @@ import com.hhx7.im.Net.Address;
 import com.hhx7.im.Net.Edge;
 
 import java.io.*;
+import java.security.acl.LastOwnerException;
+
 /**
  * Created by pi on 17-10-17.
  */
@@ -92,6 +94,7 @@ public  class MyMessage extends MessageHeader implements Serializable{
         if(fromAddr!=null && fromZone!=null){
             from=new Address(Integer.parseInt(fromZone),fromAddr);
         }
+
         String toZone=get("To-zone");
         String toAddr=get("To-address");
         if(toAddr!=null && toZone!=null){

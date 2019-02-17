@@ -3,7 +3,9 @@ package com.hhx7.im.sefu.awesomeloginui;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,7 +60,13 @@ public class Login extends AppCompatActivity {
                 DialogsFixtures.getRandomAvatar(),
                 true
         );
-        user.setBtAddr(BluetoothAdapter.getDefaultAdapter().getAddress());
+        Log.i("zz","addr:"+Settings.Secure.getString(getContentResolver(), "bluetooth_address"));
+        String mac = BluetoothAdapter.getDefaultAdapter().getAddress();
+        if (mac == null || mac.equals("02:00:00:00:00:00")){
+            mac =null;
+        }
+        user.setBtAddr(mac);
+
         ((App)getApplication()).setCurrentUser(user);
 
         Intent startupIntent = new Intent(this, MainActivity.class);

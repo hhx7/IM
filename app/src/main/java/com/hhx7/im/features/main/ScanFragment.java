@@ -96,22 +96,18 @@ public class ScanFragment extends Fragment
             getUserInfo.putExtra(EdgeManager.ARGS_MESSAGE_NAME,message);
             localBroadcastManager.sendBroadcast(getUserInfo);
 
-
         }
     }
     // Create a BroadcastReceiver for ACTION_FOUND
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public synchronized void onReceive(Context context, Intent intent) {
+        public  void onReceive(Context context, Intent intent) {
 
             String action = intent.getAction();
-
              // When discovery finds a device
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
 
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-                Toast.makeText(context,device.getAddress(),Toast.LENGTH_SHORT).show();
 
                 List<User> list=((App)context.getApplicationContext()).getUserBox().query().equal(User_.btAddr,device.getAddress()).build().find();
                 User user=null;
@@ -133,11 +129,7 @@ public class ScanFragment extends Fragment
                         dialogsAdapter.addItem(dialog);
                         dialogs.add(device.getAddress());
                     }
-
                 }
-
-
-
             }else if(BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)){
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if(device.getBondState()==BluetoothDevice.BOND_NONE){
@@ -185,6 +177,11 @@ public class ScanFragment extends Fragment
         localBroadcastManager=LocalBroadcastManager.getInstance(context);
         context.registerReceiver(mReceiver, btFilter);
         localBroadcastManager.registerReceiver(mReceiver,updateUserFilter);
+
+        Intent discoverableIntent = new
+                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        startActivity(discoverableIntent);
     }
 
     @Override
@@ -247,17 +244,6 @@ public class ScanFragment extends Fragment
         dialogsList.setAdapter(dialogsAdapter);
     }
 
-
-
-
-
-
-
-
-
-
-
-
     private boolean openBluetooth(){
         //open bluetooth
         if (mBluetoothAdapter == null) {
@@ -278,7 +264,7 @@ public class ScanFragment extends Fragment
         //dialogs.clear();
         if(openBluetooth())
            mBluetoothAdapter.startDiscovery();
-        Toast.makeText(context,"start scanning",Toast.LENGTH_LONG).show();
+        Log.i("zz","staring scanning");
     }
 
 

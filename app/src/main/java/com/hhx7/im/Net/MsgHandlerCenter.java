@@ -54,6 +54,7 @@ public class MsgHandlerCenter extends Thread {
             if(url!=null){
                 if(url.equals(URL_GET_USER_INFO)){
 
+
                     User currentUser=app.getCurrentUser();
                     MyMessage myMessage1=new MyMessage();
                     myMessage1.setFrom(myMessage.getTo());
@@ -65,11 +66,30 @@ public class MsgHandlerCenter extends Thread {
                     Intent intent1=new Intent(EdgeManager.FORWARD_MESSAGE_ACTION);
                     intent1.putExtra(EdgeManager.ARGS_MESSAGE_NAME,myMessage1);
                     localBroadcastManager.sendBroadcast(intent1);
+
+                    List<User> list=((App)context.getApplicationContext()).getUserBox().query().equal(User_.btAddr,myMessage.getFrom().getAddress()).build().find();
+                    User user=null;
+                    if(list.size()>0){
+                        user=list.get(0);
+                    }
+
+                    if(user==null) {
+
+                        MyMessage message=new MyMessage();
+                        message.setUrl(MsgHandlerCenter.URL_GET_USER_INFO);
+                        Address to=new Address(Address.BLUETOOTH,myMessage.getFrom().getAddress());
+                        Address from=new Address(Address.BLUETOOTH,myMessage.getTo().getAddress());
+                        message.setFrom(from);
+                        message.setTo(to);
+                        Intent getUserInfo=new Intent(EdgeManager.FORWARD_MESSAGE_ACTION);
+                        getUserInfo.putExtra(EdgeManager.ARGS_MESSAGE_NAME,message);
+                        localBroadcastManager.sendBroadcast(getUserInfo);
+                    }
                 }else if(url.equals(URL_USER_INFO)){
                     String name=myMessage.get(User.DATA_NAME);
                     String avatar=myMessage.get(User.DATA_AVATAR);
-                    String btAddr=myMessage.get(User.DATA_BT_ADDR);
-
+                    //*
+                    String btAddr=myMessage.getFrom().getAddress();
 
                     User user=new User(
                             DialogsFixtures.getRandomId(),
@@ -166,7 +186,6 @@ public class MsgHandlerCenter extends Thread {
 
     private Message myMessageToMessage(MyMessage myMessage){
         Address from=myMessage.getFrom();
-
 
         User sendUser=getUserByAddr(from);
 

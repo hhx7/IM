@@ -2,6 +2,9 @@ package com.hhx7.im;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +15,8 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        Map<String,String> map=new HashMap<>();
+        String test = map.get("zz");
+        System.out.print(test==null);
     }
 }
